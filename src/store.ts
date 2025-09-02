@@ -10,6 +10,7 @@ import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface TodoStore{
   id:string;
   text:string;
+  isFinished:boolean;
 }
 
 // const addToDo = (text:string) => {
@@ -78,8 +79,8 @@ const todosSlice = createSlice({
     addToDo:{
       reducer(state, action:PayloadAction<{id:string; text:string}>){
         const text = action.payload.text;
-        if(!text) return state;
-        state.push({text, id:action.payload.id})
+        if(!text) return;
+        state.push({text, id:action.payload.id,isFinished:false})
       },
       prepare(text:string){
         return{
@@ -92,14 +93,19 @@ const todosSlice = createSlice({
     },
     deleteToDo(state, action:PayloadAction<{id:string}>){
       return state.filter(item => item.id !== action.payload.id)
+    },
+    changeTodo(state, action:PayloadAction<{id:string}>){
+      const todo = state.find(t => t.id === action.payload.id);
+      if (todo) todo.isFinished = !todo.isFinished; 
     }
   }
 })
 
-export const { addToDo, deleteToDo } = todosSlice.actions;
+export const { addToDo, deleteToDo, changeTodo } = todosSlice.actions;
 export const actionCreators = {
   addToDo,
-  deleteToDo
+  deleteToDo,
+  changeTodo
 }
 // const preloadedState = loadState();
 // export const store = createStore(reducer,preloadedState);

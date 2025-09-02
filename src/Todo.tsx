@@ -3,16 +3,19 @@ import { actionCreators, TodoStore } from "./store"
 import { Link } from "react-router-dom";
 
 
-const Todo = ({text,id}:TodoStore) => {
+const Todo = ({text,id,isFinished}:TodoStore) => {
   const dispatch = useDispatch();
   const onClick = () => {
     dispatch(actionCreators.deleteToDo({id}))
   }
+  const change = () => {
+    dispatch(actionCreators.changeTodo({id}))
+  }
   return (
     <li>
-      <Link to={`/${id}`}>
-      {text}</Link> <button onClick={onClick}>DEL</button>
-      
+      <button onClick={change}>{isFinished ? "TODO" : "DONE"}</button>
+      <Link to={`/${id}`}>{text}</Link> 
+      <button onClick={onClick}>❌</button>
     </li>
   )
 }

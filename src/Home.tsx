@@ -25,9 +25,14 @@ const Home = () => {
         <input onChange={onChange} value={text} type="text" placeholder="Write todo"/>
         <button>ADD</button>
       </form>
-      <ul>{todos.map(todo => (
-        <Todo key={todo.id} {...todo}/>
-      ))}</ul>
+      <ul>{todos.map(todo => {
+        return !todo.isFinished && <Todo key={todo.id} {...todo}/>
+      })}</ul>
+      <hr/>
+      <h2>Done</h2>
+      <ul>{todos.map(todo => {
+        return todo.isFinished && <Todo key={todo.id} {...todo}/>
+      })}</ul>
     </>
   )
 }
