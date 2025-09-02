@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import Todo from "./Todo";
-import { actionCreators, TodoStore } from "./store";
+import { actionCreators, RootState, TodoStore } from "./store";
 
 const Home = () => {
   const [text, setText] = useState("");
-  const todos = useSelector<TodoStore[],TodoStore[]>((state) => state);
+  const todos = useSelector<RootState,TodoStore[]>((state) => state.todos);
   const dispatch = useDispatch();
 
   const onChange = (event:ChangeEvent<HTMLInputElement>) => {

@@ -118,3 +118,5 @@ store.subscribe(() => {
   const {todos} = store.getState()
   saveState(todos);
 });
+
+export type RootState = ReturnType<typeof store.getState>;
