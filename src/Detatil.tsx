@@ -1,10 +1,11 @@
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
-import { TodoStore } from "./store";
+import { RootState, TodoStore } from "./store";
 
-const Detatil = ({toDos}:{toDos:TodoStore[]}) => {
+const Detatil = () => {
+  const todos = useSelector<RootState,TodoStore[]>(state => state.todos)
   const {id} = useParams();
-  const toDo = toDos.find(item => item.id === id);
+  const toDo = todos.find(item => item.id === id);
 
   return (
     <>
@@ -16,10 +17,12 @@ const Detatil = ({toDos}:{toDos:TodoStore[]}) => {
   )
 }
 
-function mapStateToProps(state:TodoStore[]){
-  return {
-    toDos:state
-  }
-}
+// function mapStateToProps(state:TodoStore[]){
+//   return {
+//     toDos:state
+//   }
+// }
 
-export default connect(mapStateToProps)(Detatil)
+// export default connect(mapStateToProps)(Detatil)
+
+export default Detatil
